@@ -10,13 +10,44 @@ Welcome to your new app.
 
 <MudDatePicker Date="@date" DateChanged="Callback"></MudDatePicker>
 
+@if (isLoading)
+{
+    <MudSkeleton></MudSkeleton>
+}
+else
+{
+    <MudCard>
+        <MudCardHeader></MudCardHeader>
+        <MudCardContent>
+            dati reali
+        </MudCardContent>
+        <MudCardActions></MudCardActions>
+    </MudCard>
+}
+
 @code
 {
     private DateTime? date;
 
+    private bool isLoading;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Callback(DateTime.Today);
+        }
+    }
+
     private async Task Callback(DateTime? obj)
     {
-        await Task.Delay(1000);
+        isLoading = true;
+
+        date = obj;
+
+        await Task.Delay(3000);
+
+        isLoading = false;
     }
 
 }
