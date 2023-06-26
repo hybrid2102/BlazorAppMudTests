@@ -31,12 +31,17 @@ else
 
     private bool isLoading;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        await Callback(DateTime.Today);
+    //    }
+    //}
+
+    protected override async Task OnInitializedAsync()
     {
-        if (firstRender)
-        {
-            await Callback(DateTime.Today);
-        }
+        await Callback(DateTime.Today);
     }
 
     private async Task Callback(DateTime? obj)
